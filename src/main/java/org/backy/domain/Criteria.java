@@ -7,17 +7,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Criterial {
+public class Criteria {
 	private int pageNum; //page 1page, 2page, 3page
 	private int amount; //page당 data 개수
 	private String type;//T,C,W
 	private String keyword;//검색내용
 	
-	public Criterial() {
+	public Criteria() {
 		this(1,10);
 	}
 	
-	public Criterial(int pageNum, int amount) {
+	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}

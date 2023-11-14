@@ -12,9 +12,9 @@ public class PageDTO {
 	private boolean prev, next;
 	
 	private int total;
-	private Criterial cri;
+	private Criteria cri;
 //							1,10		125
-	public PageDTO(Criterial cri, int total) {
+	public PageDTO(Criteria cri, int total) {
 		this.cri = cri;
 		this.total = total;
 		

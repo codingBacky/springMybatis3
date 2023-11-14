@@ -3,7 +3,7 @@ package org.backy.service;
 import java.util.List;
 
 import org.backy.domain.BoardVO;
-import org.backy.domain.Criterial;
+import org.backy.domain.Criteria;
 import org.backy.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService{
 //		return boardMapper.getList();
 //	}
 	@Override
-	public List<BoardVO> getListWithPaging(Criterial cri) {
+	public List<BoardVO> getListWithPaging(Criteria cri) {
 		log.info("getListWithPaging,.,,");
 		return boardMapper.getListWithPaging(cri);
 	}
@@ -53,7 +53,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public int getTotal(Criterial cri) {
+	public int getTotal(Criteria cri) {
 		log.info("get total");
 		return boardMapper.getTotalCount(cri);
 	}

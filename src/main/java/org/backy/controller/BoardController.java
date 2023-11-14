@@ -1,7 +1,7 @@
 package org.backy.controller;
 
 import org.backy.domain.BoardVO;
-import org.backy.domain.Criterial;
+import org.backy.domain.Criteria;
 import org.backy.domain.PageDTO;
 import org.backy.service.BoardService;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class BoardController {
 	private final BoardService service;
 	
 	@GetMapping("/list")
-	public void list(Criterial cri, Model model) {
+	public void list(Criteria cri, Model model) {
 		log.info("list");
 //		cri.setPageNum(12);
 //		cri.setAmount(10);
@@ -48,14 +48,14 @@ public class BoardController {
 	
 	// @ModelAttribute("cri") 생략가능
 	@GetMapping({"/get","/modify"})
-	public void get(Long bno, @ModelAttribute("cri")Criterial cri, Model model) {
+	public void get(Long bno, @ModelAttribute("cri")Criteria cri, Model model) {
 		log.info("get, modify");
 //		BoardVO boardVO = service.get(bno);
 		model.addAttribute("board", service.get(bno));
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno, @ModelAttribute("cri")Criterial cri,RedirectAttributes rttr) {
+	public String remove(Long bno, @ModelAttribute("cri")Criteria cri,RedirectAttributes rttr) {
 		log.info("remove");
 		
 		if(service.remove(bno)) {
@@ -63,12 +63,14 @@ public class BoardController {
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO vo, @ModelAttribute("cri")Criterial cri, RedirectAttributes rttr) {
+	public String modify(BoardVO vo, @ModelAttribute("cri")Criteria cri, RedirectAttributes rttr) {
 		log.info("modify");
 		
 		if(service.modify(vo)) {
@@ -76,6 +78,8 @@ public class BoardController {
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list";
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.backy.domain.BoardVO;
-import org.backy.domain.Criterial;
+import org.backy.domain.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +77,7 @@ public class BoardMapperTests {
 	}
 	@Test
 	public void testGetListWithPaging() {
-		Criterial cri = new Criterial();
+		Criteria cri = new Criteria();
 		cri.setPageNum(2);
 		cri.setAmount(15);
 		List<BoardVO> list = mapper.getListWithPaging(cri);
@@ -86,20 +86,35 @@ public class BoardMapperTests {
 	
 	@Test
 	public void testGetTotalCount() {
-		log.info(mapper.getTotalCount(new Criterial()));
+		Criteria cri = new Criteria();
+		cri.setType("TCW");
+		cri.setKeyword("자바");
+		log.info(mapper.getTotalCount(cri));
 	}
 	
 	@Test
 	public void testSearch() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("T", "잡아자바");
-		map.put("C", "없는걸로");
-		map.put("W", "없는걸로");
+		map.put("C", "새글새글");
+		map.put("W", "글쓴이");
 		
 		Map<String, Map<String, String>> outer = new HashMap<String, Map<String,String>>();
 		outer.put("map", map);
 		
 		List<BoardVO> searchTestList = mapper.searchTest(outer);
 		log.info(searchTestList);
+	}
+	
+	@Test
+	public void testSearchPaging() {
+		Criteria cri = new Criteria();
+		cri.setType("TW");
+		cri.setKeyword("잡아자바");
+		
+//		List<BoardVO> list = mapper.getListWithPaging(cri);
+//		log.info(list);
+		
+		mapper.getListWithPaging(cri).forEach(list -> log.info(list));
 	}
 }
